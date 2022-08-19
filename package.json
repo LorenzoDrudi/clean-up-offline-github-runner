@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint .",
-    "prepare": "ncc build src/index.js -o dist --source-map --license licenses.txt",
+    "prepare": "ncc build src/index.js -o dist --source-map --license licenses.txt && husky install",
     "all": "npm run lint && npm run prepare"
   },
   "repository": {
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",
-    "eslint": "^8.0.0"
+    "eslint": "^8.0.0",
+    "husky": "^8.0.1"
   }
 }

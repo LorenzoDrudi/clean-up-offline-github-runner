@@ -2805,7 +2805,6 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(821);
 
 async function run() {
-    console.log("test")
 }
 
 run();

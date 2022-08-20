@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/LorenzoDrudi/clean-up-offline-github-runners#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.2.5",
+    "@octokit/core": "^4.0.5"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",

@@ -17948,6 +17948,7 @@ async function run() {
                     owner: repoOwner,
                     repo: repoName,
                 });
+                console.log(runners)
                 // Delete all the offline self-hosted runners from the repository
                 for (const runner of runners) {
                     if (runner.status === "offline" ) {

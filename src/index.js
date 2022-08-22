@@ -7,19 +7,19 @@ async function run() {
 
         const repoOwner = core.getInput('repo-owner');
         const repoName = core.getInput('repo-name');
-        const personalAcessToken = core.getInput('personal-access-token');
+        const personalAccessToken = core.getInput('personal-access-token');
         let outputMessage = 'Deleted Runners IDs: ';
 
         // Log in
         const octokit = new Octokit({
-            auth: personalAcessToken
-        })
+            auth: personalAccessToken
+        });
 
         // List self-hosted runners for a repository
         const runners = (await octokit.request('GET /repos/{owner}/{repo}/actions/runners', {
             owner: repoOwner,
             repo: repoName
-        })).runners;
+        }));
 
         console.log(runners);
 
@@ -31,7 +31,7 @@ async function run() {
                     owner: repoOwner,
                     repo: repoName,
                     runner_id: runner.id
-                })
+                });
     
                 outputMessage += runner.id;
                 outputMessage += ', ';

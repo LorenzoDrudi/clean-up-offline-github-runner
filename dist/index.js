@@ -9414,7 +9414,7 @@ async function run() {
         const runners = (await octokit.request('GET /repos/{owner}/{repo}/actions/runners', {
             owner: repoOwner,
             repo: repoName
-        }));
+        })).data.runners;
 
         console.log(runners);
 

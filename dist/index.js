@@ -17943,18 +17943,18 @@ async function run() {
         for await (const { octokit, repository } of app.eachRepository.iterator()) {
             if (repository.owner.login === repoOwner && repository.name === repoName) {
                 console.log(octokit.rest)
-                const runners = await octokit.rest.actions.listSelfHostedRunnersForRepo({
+                const runners = await octokit.request('GET /repos/{owner}/{repo}/actions/runners', {
                     owner: repoOwner,
-                    repo: repoName,
+                    repo: repoName
                 });
                 console.log(runners)
                 // Delete all the offline self-hosted runners from the repository
                 for (const runner of runners) {
                     if (runner.status === "offline" ) {
-                        await octokit.rest.actions.deleteSelfHostedRunnerFromRepo({
+                        await octokit.request('DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}', {
                             owner: repoOwner,
                             repo: repoName,
-                            runner_id: runner.id,
+                            runner_id: runner.id
                         });
                     }
                 }

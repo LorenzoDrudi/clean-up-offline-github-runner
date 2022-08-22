@@ -17937,12 +17937,9 @@ async function run() {
             privateKey: process.env.APP_PRIVATE_KEY,
         });
 
-        const { data } = await app.octokit.request("/app");
-
         // List all the repository where the App is installed
         for await (const { octokit, repository } of app.eachRepository.iterator()) {
             if (repository.owner.login === repoOwner && repository.name === repoName) {
-                console.log(octokit.rest)
                 const runners = (await octokit.request('GET /repos/{owner}/{repo}/actions/runners', {
                     owner: repoOwner,
                     repo: repoName

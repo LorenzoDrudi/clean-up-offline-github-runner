@@ -24,9 +24,9 @@ async function run() {
         console.log(runners);
 
         // Delete a self-hosted runner from a repository
-        for (const runner in runners) {
+        for (const runner of runners) {
             console.log(runner);
-            if (runner.status === "offline" ){
+            if (runner.status === "offline" ) {
                 console.log("runner offline")
                 await octokit.request('DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}', {
                     owner: repoOwner,

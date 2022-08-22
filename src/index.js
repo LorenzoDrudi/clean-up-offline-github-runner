@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const { Octokit } = require("@octokit/rest");
+const { App } = require("@octokit/app");
 
 async function run() {
 
@@ -7,41 +7,36 @@ async function run() {
 
         const repoOwner = core.getInput('repo-owner');
         const repoName = core.getInput('repo-name');
-        const personalAccessToken = core.getInput('personal-access-token');
-        let outputMessage = 'Deleted Runners IDs: ';
 
         // Log in
-        const octokit = new Octokit({
-            auth: personalAccessToken
+        const app = new App({
+            appId: process.env.APP_ID,
+            privateKey: process.env.APP_PRIVATE_KEY,
         });
 
-        // List self-hosted runners for a repository
-        const runners = (await octokit.request('GET /repos/{owner}/{repo}/actions/runners', {
-            owner: repoOwner,
-            repo: repoName
-        })).data.runners;
+        const { data } = await app.octokit.request("/app");
 
-        console.log(runners);
-
-        // Delete a self-hosted runner from a repository
-        for (const runner of runners) {
-            if (runner.status === "offline" ) {
-                await octokit.request('DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}', {
+        // List all the repository where the App is installed
+        for await (const { octokit, repository } of app.eachRepository.iterator()) {
+            console.log(repository.owner);
+            console.log(repository.name);
+            if (repository.owner === repoOwner && repository.name === repoName) {
+                const runners = await octokit.rest.actions.listSelfHostedRunnersForRepo({
                     owner: repoOwner,
                     repo: repoName,
-                    runner_id: runner.id
                 });
-    
-                outputMessage += runner.id;
-                outputMessage += ', ';
+                // Delete all the offline self-hosted runners from the repository
+                for (const runner of runners) {
+                    if (runner.status === "offline" ) {
+                        await octokit.rest.actions.deleteSelfHostedRunnerFromRepo({
+                            owner: repoOwner,
+                            repo: repoName,
+                            runner_id: runner.id,
+                        });
+                    }
+                }
             }
         }
-
-        // simple formating to make it look good: remove the last comma and adding a dot
-        outputMessage = outputMessage.trim().slice(0, -1);
-        outputMessage += '.';
-        core.setOutput("output-message", outputMessage);
-
     } catch (error) {
         core.setFailed(error.message);
     }

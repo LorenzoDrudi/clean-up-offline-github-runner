@@ -21,6 +21,8 @@ async function run() {
             console.log(repository.owner.login);
             console.log(repository.name);
             if (repository.owner.login === repoOwner && repository.name === repoName) {
+                console.log(repository)
+                console.log(octokit)
                 const runners = await octokit.rest.actions.listSelfHostedRunnersForRepo({
                     owner: repoOwner,
                     repo: repoName,

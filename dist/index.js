@@ -17941,11 +17941,8 @@ async function run() {
 
         // List all the repository where the App is installed
         for await (const { octokit, repository } of app.eachRepository.iterator()) {
-            console.log(repository.owner.login);
-            console.log(repository.name);
             if (repository.owner.login === repoOwner && repository.name === repoName) {
-                console.log(repository)
-                console.log(octokit)
+                console.log(octokit.rest)
                 const runners = await octokit.rest.actions.listSelfHostedRunnersForRepo({
                     owner: repoOwner,
                     repo: repoName,

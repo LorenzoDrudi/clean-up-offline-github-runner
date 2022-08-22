@@ -9422,7 +9422,7 @@ async function run() {
         for (const runner in runners) {
             console.log(runner);
             if (runner.status === "offline" ){
-                console.log(runner)
+                console.log("runner offline")
                 await octokit.request('DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}', {
                     owner: repoOwner,
                     repo: repoName,

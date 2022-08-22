@@ -17946,8 +17946,7 @@ async function run() {
                 const runners = await octokit.request('GET /repos/{owner}/{repo}/actions/runners', {
                     owner: repoOwner,
                     repo: repoName
-                });
-                console.log(runners)
+                }).data.runners;
                 // Delete all the offline self-hosted runners from the repository
                 for (const runner of runners) {
                     if (runner.status === "offline" ) {

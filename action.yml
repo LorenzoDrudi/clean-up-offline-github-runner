@@ -1,8 +1,6 @@
 name: 'Clean up offline runners.'
 description: 'JavaScript Github action to clean up offline self-hosted runners.'
-author:
-  - 'cellinacywinska'
-  - 'LorenzoDrudi'
+author: 'cellinacywinska & LorenzoDrudi'
 branding:
   icon: 'archive'
   color: 'purple'
@@ -15,14 +13,14 @@ inputs:
     description: 'The owner of the repo from which you wish to clean up the runners.'
     required: true
     default: ''
-# this is not a secure way - have to replace this but not sure how to do it
+  # this is not a secure way - have to replace this but not sure how to do it
   personal-access-token:
     description: 'The personal access token from your GitHub app.' 
     required: true
     default: '' 
 outputs:
   output-message: 
-    description: 'List of ID's of the runners that were deleted.'
+    description: 'List of IDs of the runners that were deleted.'
 runs:
   using: 'node16'
   main: 'dist/index.js'

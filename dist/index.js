@@ -9416,6 +9416,8 @@ async function run() {
             repo: repoName
         })).runners;
 
+        console.log(runners);
+
         // Delete a self-hosted runner from a repository
         for (const runner in runners) {
             console.log(runner.name);

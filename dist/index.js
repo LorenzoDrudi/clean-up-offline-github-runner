@@ -17927,7 +17927,6 @@ const { App } = __nccwpck_require__(7367);
 async function run() {
 
     try {
-
         const repoOwner = core.getInput('repo-owner');
         const repoName = core.getInput('repo-name');
 

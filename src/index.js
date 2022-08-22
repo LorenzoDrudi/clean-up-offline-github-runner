@@ -4,7 +4,6 @@ const { App } = require("@octokit/app");
 async function run() {
 
     try {
-
         const repoOwner = core.getInput('repo-owner');
         const repoName = core.getInput('repo-name');
 
